@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Naughts and Crosses</string>
+    <string name="cd_refresh">restarts the game</string>
+    <string name="draw">Draw</string>
+    <string name="message_template">Player %1$s%2$s</string>
+    <string name="turn_suffix">\'s turn</string>
+    <string name="winner_suffix">\u0020has won</string>
+</resources>
