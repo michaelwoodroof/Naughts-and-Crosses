@@ -131,7 +131,7 @@ This has now provided us with a cell with the needed visual properties. However,
 
 ```
 Button(
-    modifier = Modifier.aspectRatio(1F)
+    modifier = Modifier.aspectRatio(1f)
 )
 ```
 
@@ -177,7 +177,7 @@ fun PreviewCell() {
                 Cell(
                     enabled = true,
                     modifier = Modifier
-                        .aspectRatio(1F),
+                        .aspectRatio(1f),
                     onClick = {},
                     state = CellState.O,
                 )
@@ -279,7 +279,7 @@ fun Board() {
             .background(
                 color = MaterialTheme.colorScheme.background,
             )
-            .fillMaxSize(1F)
+            .fillMaxSize(1f)
             .padding(
                 all = 24.dp,
             ),
@@ -288,7 +288,7 @@ fun Board() {
         Row(
             horizontalArrangement = Arrangement.End,
             modifier = Modifier
-                .fillMaxWidth(1F)
+                .fillMaxWidth(1f)
                 .padding(
                     vertical = 8.dp,
                 ),
@@ -299,14 +299,14 @@ fun Board() {
         repeat(3) { y ->
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(1F),
+                    .fillMaxWidth(1f),
             ) {
                 repeat(3) { x ->
                     Cell(
                         enabled = true,
                         modifier = Modifier
-                            .aspectRatio(1F)
-                            .fillMaxWidth(1F)
+                            .aspectRatio(1f)
+                            .fillMaxWidth(1f)
                             .weight(0.33F),
                         onClick = {},
                         state = CellState.UNFILLED,
@@ -400,7 +400,7 @@ Board() {
             Text(
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier
-                    .weight(1F),
+                    .weight(1f),
                 style = MaterialTheme.typography.bodyMedium,    
                 text =
                     if (winner) {
