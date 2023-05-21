@@ -36,7 +36,7 @@ fun Board(
             .background(
                 color = MaterialTheme.colorScheme.background,
             )
-            .fillMaxSize(1F)
+            .fillMaxSize(1f)
             .padding(
                 all = 24.dp,
             ),
@@ -45,7 +45,7 @@ fun Board(
         Row(
             horizontalArrangement = Arrangement.End,
             modifier = Modifier
-                .fillMaxWidth(1F)
+                .fillMaxWidth(1f)
                 .padding(
                     vertical = 8.dp,
                 ),
@@ -53,8 +53,7 @@ fun Board(
         ) {
             Text(
                 color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier
-                    .weight(1F),
+                modifier = Modifier.weight(1f),
                 style = MaterialTheme.typography.bodyMedium,
                 text =
                     if (winner) {
@@ -90,15 +89,15 @@ fun Board(
         repeat(dimension) { y ->
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(1F),
+                    .fillMaxWidth(1f),
             ) {
                 repeat(dimension) { x ->
                     Cell(
                         enabled = boardState[x + dimension * y] == CellState.UNFILLED && !winner,
                         modifier = Modifier
-                            .aspectRatio(1F)
-                            .fillMaxWidth(1F)
-                            .weight(0.33F),
+                            .aspectRatio(1f)
+                            .fillMaxWidth(1f)
+                            .weight(0.33f),
                         onClick = {
                             onClick(x, y)
                         },

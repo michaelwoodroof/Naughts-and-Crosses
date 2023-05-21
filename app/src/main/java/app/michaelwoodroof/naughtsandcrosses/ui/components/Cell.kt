@@ -32,7 +32,7 @@ fun Cell(
     Button(
         border = BorderStroke(
             color = MaterialTheme.colorScheme.onBackground.copy(
-                alpha = 0.4F,
+                alpha = 0.4f,
             ),
             width = 1.dp,
         ),
@@ -70,7 +70,7 @@ fun PreviewCell() {
                 Cell(
                     enabled = true,
                     modifier = Modifier
-                        .aspectRatio(1F),
+                        .aspectRatio(1f),
                     onClick = {},
                     state = CellState.O,
                 )
