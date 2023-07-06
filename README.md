@@ -22,7 +22,7 @@ Create this package `app.michaelwoodroof.naughtsandcrosses.ui.components` then n
 
 Open Cell.kt and copy this code snippet:
 
-```
+```kotlin
 @Composable
 fun Cell() {
 
@@ -45,7 +45,7 @@ fun PreviewCell() {
 
 This provides us with a simple Composable with a preview. However, this is just a bare bones composable you will need to add a Button to this composable view the [api specification of a filled button](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#button). You will create a Button with a Text element as it's content. See below for the snippet you will use for the contents of the cell. As in order for the game to function you will need something to click to fill the cell with either a 'X' or an 'O'.
 
-```
+```kotlin
 fun Cell() {
     Button(
         onClick = {},
@@ -61,7 +61,7 @@ fun Cell() {
 
 Currently, the Cell doesn't really look how you'd expect for a cell in a Naughts and Crosses game. In order to make the button look how'd you'd expect a Cell to look you need to give the button properties. Let's start by adjusting the colours of the Button, update the property `border` in the button to the following:
 
-```
+```kotlin
 border = BorderStroke(
     color = MaterialTheme.colorScheme.onBackground.copy(
         alpha = 0.4F,
@@ -72,7 +72,7 @@ border = BorderStroke(
 
 and update the property `colors` to the following:
 
-```
+```kotlin
 colors = ButtonDefaults.buttonColors(
     containerColor = MaterialTheme.colorScheme.surface,
     contentColor = MaterialTheme.colorScheme.onSurface,
@@ -82,7 +82,7 @@ colors = ButtonDefaults.buttonColors(
 
 and add `style` to the text element:
 
-```
+```kotlin
 Button(
     ...
 ) {
@@ -95,7 +95,7 @@ Button(
 
 and lastly the property `shape` to the following:
 
-```
+```kotlin
 shape = RoundedCornerShape(
     size = 0.dp,
 ),
@@ -103,7 +103,7 @@ shape = RoundedCornerShape(
 
 This should result in this:
 
-```
+```kotlin
 Button(
     border = BorderStroke(
         color = MaterialTheme.colorScheme.onBackground.copy(
@@ -129,7 +129,7 @@ Button(
 
 This has now provided us with a cell with the needed visual properties. However, the shape of the cell will still not be correct so you will need to apply a modifier to the cell. Apply the following modifier to the cell:
 
-```
+```kotlin
 Button(
     modifier = Modifier.aspectRatio(1f)
 )
@@ -141,7 +141,7 @@ This will successfully create a Cell that resembles what you'd except a Cell to 
 
 You may have noticed that a Button needs to have a `onClick` property this has intentionally been omitted for the time being. As you will now hoist any logic that pertains to the Cell's state. Additionally, there needs to be a way to track the state in which the cell is in there is an enum class provided `CellState` this records the three possible states in which a cell can be in: X, O or UNFILLED. By adding the following properties we will now have completed the cell component:
 
-```
+```kotlin
 fun Cell(
     enabled: Boolean,
     modifier: Modifier,
@@ -152,7 +152,7 @@ fun Cell(
 
 And now update the Button to use these paramters so it looks as the following:
 
-```
+```kotlin
 Button(
     border = ...,
     colors = ...,
@@ -169,7 +169,7 @@ Button(
 
 Additionally, you will need to also the preview with these parameters with the following:
 
-```
+```kotlin
 fun PreviewCell() {
     NaughtsAndCrossesTheme(
         content = {
@@ -193,7 +193,7 @@ If you now refresh or build the project you will see a cell preview alongside th
 
 Open Board.kt and copy this code snippet:
 
-```
+```kotlin
 @Composable
 fun Board() {
 
@@ -218,7 +218,7 @@ fun PreviewBoard() {
 
 Currently, our board is empty and does not make use of our `Cell` component. To begin we will use the `Column` layout and instead this we will have a `Row` this will be used later on to show the current state of the game copy the following into the Board composable:
 
-```
+```kotlin
 fun Board() {
     Column() {
         Row() {
@@ -229,7 +229,7 @@ fun Board() {
 
 Below the row we need to create the 3 x 3 Grid this can be created by using the following Kotlin built-in function `repeat` copy the following (below the row) to create the board:
 
-```
+```kotlin
 repeat(3) {
     Row() {
         repeat(3) {
@@ -248,7 +248,7 @@ You will now have the board with the grid of cells for the naughts and crosses b
 
 Your board component should look like this:
 
-```
+```kotlin
 fun Board() {
     Column() {
         Row() {
@@ -272,7 +272,7 @@ fun Board() {
 
 The board however, will not look quite right as it hasn't been styled yet to rectify this please adjust the board to the following:
 
-```
+```kotlin
 fun Board() {
     Column(
         modifier = Modifier
@@ -330,7 +330,7 @@ In order for the game to function the following will need to be tracked: `boardS
 
 Board state will track the state of each cell within the board. In order to track this state in Compose this needs to be declared at the top level of the composable Board.
 
-```
+```kotlin
 var boardState by remember {
     mutableStateOf(
         Array(9) { CellState.UNFILLED }
@@ -342,7 +342,7 @@ var boardState by remember {
 
 isX tracks if player X is the current player or not. To track this within Compose this needs to be declared at the top level of the composable Board.
 
-```
+```kotlin
 var isX by remember {
     mutableStateOf(false)
 }
@@ -352,7 +352,7 @@ var isX by remember {
 
 Winner will track when a player has won the game. Add this to the top level of the composable Board.
 
-```
+```kotlin
 var winner by remember {
     mutableStateOf(false)
 }
@@ -360,7 +360,7 @@ var winner by remember {
 
 ##### How the board composable should be:
 
-```
+```kotlin
 fun Board() {
     var boardState by remember {
         mutableStateOf(
@@ -381,7 +381,7 @@ fun Board() {
 
 You will now integrate the logic into the board to make the game functional. To begin add the below string templates to `strings.xml`. These will be used to display who's turn it is and which player has won.
 
-```
+```kotlin
 <string name="message_template">Player %1$s%2$s</string>
 <string name="turn_suffix">\'s turn</string>
 <string name="winner_suffix">\u0020has won</string>
@@ -389,7 +389,7 @@ You will now integrate the logic into the board to make the game functional. To 
 
 Now that the strings have been added to the project you can now implement these strings by adding a Text component into the Row added earlier in the Board composable. This will make use of the variables `winner` and `isX` to be able to correctly display who's turn it is and if not who won the current game.
 
-```
+```kotlin
 Board() {
     Column(
         ...
@@ -426,7 +426,7 @@ Board() {
 Now the logic will be added to the Cell composable and this will tie the whole game together. Next the enabled property needs to be tied to the Game state. First the Cell should only be able to be clicked if it is in the state of `CellState.UNFILLEDD` and that there isn't a winner. This is why the enabled property is set to `boardState[x + 3 * y] == CellState.UNFILLED && !winner`.
 
 
-```
+```kotlin
 Cell(
     enabled = boardState[x + 3 * y] == CellState.UNFILLED && !winner,
     modifier = ...,
@@ -441,7 +441,7 @@ Cell(
 
 The click event will handle updating all the previously added variables, this click event will be added to the Cell within the Board composable.
 
-```
+```kotlin
 Cell(
     enabled = ...,
     modifier = ...,
@@ -460,7 +460,7 @@ Cell(
 
 This code snippet will also need to be added to the function in Utils `detectWin` this defines using a list of all possible winning board states and determines if there is a winner. Then using some built-in Kotlin functions and boolean logic we can determine if all three cells in a possible winning state are in fact X or O.
 
-```
+```kotlin
 fun detectWin(input: Array<CellState>): Boolean {
     val winningStates = arrayOf(
         arrayOf(0, 1, 2),
@@ -493,7 +493,7 @@ Now try playing a game and you will see that it will be able to detect if a play
 
 Currently, all the logic for the board is bound to the board composable itself this is generally not advised, due to that the composable board will manage it's own state making it harder to test and to simulate different states for the board in previews. This is why the state will be hoisted outside of the board. First let's add all the state variables as parameters for the board composable itself this should be done as the following:
 
-```
+```kotlin
 fun Board(
     boardState: Array<CellState>,
     dimension: Int,
@@ -507,7 +507,7 @@ You'll notice that there is an additional parameter this being dimension this is
 
 Now you need to remove all state variables from the board composable and update the cell onClick method to the following:
 
-```
+```kotlin
 Cell(
     ...
     onClick = {
@@ -519,7 +519,7 @@ Cell(
 
 and all that is left is to update the preview of the board composable and the adjustments for the MainActivity to begin update the board preview to the following:
 
-```
+```kotlin
 fun PreviewBoard() {
     NaughtsAndCrossesTheme(
         content = {
@@ -539,7 +539,7 @@ fun PreviewBoard() {
 
 and the MainActivity should now be updated to the following:
 
-```
+```kotlin
 val dimension = 3
 
 setContent {
@@ -590,7 +590,7 @@ The state has now been hoisted to out of the board composable.
 
 There is a slight problem in that there is currently no way to detect if there was a draw to fix this a new variable will be introduced this being `draw`. Start by adding this to `MainActivity`:
 
-```
+```kotlin
 var draw by remember {
     mutableStateOf(
         false
@@ -610,7 +610,7 @@ fun Board(
 
 and update the preview to:
 
-```
+```kotlin
 fun PreviewBoard() {
     NaughtsAndCrossesTheme(
         content = {
@@ -628,7 +628,7 @@ fun PreviewBoard() {
 
 Now add that draw variable to the Board composable that if the content in the `MainActivity`. Lastly, in order to correctly detect a draw all that needs to be added is this to the `onClick` and adjustment to the text element in the Board that shows the player's turn and who has won:
 
-```
+```kotlin
 onClick = { x, y ->
     ...
     winner = Utils.detectWin(boardState)
@@ -640,7 +640,7 @@ onClick = { x, y ->
 
 and adjust the Text component in the board to this:
 
-```
+```kotlin
 fun Board(
     ...
 ) {
@@ -675,7 +675,7 @@ fun Board(
 
 and lastly, add this string to `strings.xml`:
 
-```
+```kotlin
 <string name="draw">Draw</string>
 ```
 
@@ -685,7 +685,7 @@ The game will now be able to detect a draw state.
 
 Additionally, there is another problem there is no way to restart the game to fix this a button will be added that when clicked will reset the board. First start by adding this to the existing Row in the board composable:
 
-```
+```kotlin
 fun Board(
     ...
 ) {
@@ -715,7 +715,7 @@ fun Board(
 
 This will add a simple [IconButton](https://developer.android.com/reference/kotlin/androidx/compose/material3/package-summary#IconButton(kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Boolean,androidx.compose.foundation.interaction.MutableInteractionSource,kotlin.Function0)), in order for this button to work a refreshAction is needed to pass to the board composable and a string template add the following:
 
-```
+```kotlin
 fun Board(
     ...
     refreshAction: () -> Unit,
@@ -725,7 +725,7 @@ fun Board(
 
 and update the preview to:
 
-```
+```kotlin
 fun PreviewBoard() {
     NaughtsAndCrossesTheme(
         content = {
@@ -743,13 +743,13 @@ fun PreviewBoard() {
 
 and
 
-```
+```kotlin
 <string name="cd_refresh">restarts the game</string>
 ```
 
 All that is left is the actual contents of the refresh action that needs to be added to the Board composable in the MainActivity add the following for the refresh action to correctly perform:
 
-```
+```kotlin
 content = {
     Board(
         ...
