@@ -20,7 +20,7 @@ Create this package `app.michaelwoodroof.naughtsandcrosses.ui.components` then n
 
 ### 3. Creating the Cell component
 
-Create a new kotlin file `Cell.kt` and copy this code snippet:
+Open `Cell.kt` and copy this code snippet:
 
 ```kotlin
 @Composable
@@ -194,7 +194,7 @@ If you now refresh or build the project you will see a cell preview alongside th
 
 ### 4. Creating the Board component
 
-Open Board.kt and copy this code snippet:
+Open `Board.kt` and copy this code snippet:
 
 ```kotlin
 @Composable
