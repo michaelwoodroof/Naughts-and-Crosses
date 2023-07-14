@@ -20,7 +20,7 @@ Create this package `app.michaelwoodroof.naughtsandcrosses.ui.components` then n
 
 ### 3. Creating the Cell component
 
-Open Cell.kt and copy this code snippet:
+Create a new kotlin file `Cell.kt` and copy this code snippet:
 
 ```kotlin
 @Composable
@@ -170,6 +170,9 @@ Button(
 Additionally, you will need to also the preview with these parameters with the following:
 
 ```kotlin
+@Preview(
+    name = "Cell",
+)
 fun PreviewCell() {
     NaughtsAndCrossesTheme(
         content = {
@@ -216,7 +219,7 @@ fun PreviewBoard() {
 
 #### 4.1 Creating the board
 
-Currently, our board is empty and does not make use of our `Cell` component. To begin we will use the `Column` layout and instead this we will have a `Row` this will be used later on to show the current state of the game copy the following into the Board composable:
+Currently, our board is empty and does not make use of our `Cell` component. To begin we will use the `Column` layout and inside this we will have a `Row` this will be used later on to show the current state of the game copy the following into the Board composable:
 
 ```kotlin
 fun Board() {
@@ -377,7 +380,7 @@ fun Board() {
 }
 ```
 
-#### 4.4 Integrating these varaibles into the board composable
+#### 4.4 Integrating these variables into the board composable
 
 You will now integrate the logic into the board to make the game functional. To begin add the below string templates to `strings.xml`. These will be used to display who's turn it is and which player has won.
 
