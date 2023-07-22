@@ -454,8 +454,9 @@ Cell(
         boardState = updatedBoard
         
         winner = Utils.detectWin(boardState)
-        if (winner) return@Cell
-        isX = !isX
+        if (!winner) {
+            isX = !isX
+        }
     },
     state = ..., 
 )
